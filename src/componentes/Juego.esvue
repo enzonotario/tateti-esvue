@@ -1,0 +1,101 @@
+---
+importar { ref } desde 'vue'
+importar Tablero desde '@/componentes/Tablero.esvue'
+importar Celda desde '@/componentes/Celda.esvue'
+importar { verificarJuegoGanado } desde '@/logica/CombinacionesGanadoras.esjs'
+
+const jugadores = ['A', 'B']
+
+const tablero = [
+	0, 1, 2,
+	3, 4, 5,
+	6, 7, 8,
+]
+
+var juegoId = ref(0);
+var turno = ref();
+var celdasJugadas = [];
+var movimientosA = [];
+var movimientosB = [];
+
+funcion iniciarJuego() {
+	juegoId.valor++
+	turno.valor = jugadores[0]
+	celdasJugadas = []
+	movimientosA = []
+	movimientosB = []
+}
+
+funcion siguienteTurno() {
+	turno.valor = turno.valor == jugadores[0] ? jugadores[1] : jugadores[0]
+
+	establecerTemporizador(() => {
+		si (verificarJuegoGanado(movimientosA)) {
+			alert('¡Ganó A!')
+			retornar iniciarJuego()
+		} osi (verificarJuegoGanado(movimientosB)) {
+			alert('¡Ganó B!')
+			retornar iniciarJuego()
+		}
+
+		si (!verificarPuedeSeguirJugando()) {
+			alert("Se acabó :(")
+			retornar iniciarJuego()
+		}
+	}, 10)
+}
+
+funcion registrarMovimiento(celda) {
+	si (celdasJugadas.incluye(celda)) {
+		retornar
+	}
+
+	celdasJugadas.agregar(celda)
+
+	si (turno.valor === jugadores[0]) {
+		movimientosA.agregar(celda)
+	} sino {
+		movimientosB.agregar(celda)
+	}
+
+	siguienteTurno()
+}
+
+funcion verificarPuedeSeguirJugando() {
+	retornar tablero.longitud - celdasJugadas.longitud > 1
+}
+
+funcion finalizarJuego() {
+	alert('fin')
+}
+
+funcion mostrarCelda(celda) {
+	si (movimientosA.incluye(celda)) {
+		retornar 'X'
+	} osi (movimientosB.incluye(celda)) {
+		retornar 'O'
+	}
+
+	retornar ''
+}
+
+iniciarJuego()
+---
+<template>
+	<div :key="juegoId" class="flex flex-col space-y-6">
+		<span class="text-3xl text-center">Juego N° {{ juegoId }}</span>
+		<span class="text-3xl text-center">Turno: {{ turno }} ({{ turno === 'A' ? 'X' : 'O' }})</span>
+
+		<div class="grid grid-cols-3 bg-gray-100">
+			<div v-for="(celda, idx) of tablero" :key="idx" class="p-1">
+				<Celda @click="registrarMovimiento(celda)">
+					<span>{{ mostrarCelda(celda) }}</span>
+				</Celda>
+			</div>
+		</div>
+
+		<div class="flex flex-col">
+			<button @click="iniciarJuego()">Reiniciar juego</button>
+		</div>
+	</div>
+</template>
