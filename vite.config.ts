@@ -3,7 +3,6 @@ import vue from '@vitejs/plugin-vue'
 import EsJS from '@es-js/vite-plugin-esjs'
 import EsVue from '@es-js/vite-plugin-esvue'
 import { URL, fileURLToPath } from 'node:url'
-import Inspect from 'vite-plugin-inspect'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -13,7 +12,6 @@ export default defineConfig({
     }),
     EsJS(),
     EsVue(),
-    Inspect(),
   ],
   resolve: {
     alias: {
