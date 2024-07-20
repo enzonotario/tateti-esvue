@@ -10,9 +10,9 @@ exportar const combinacionesGanadoras = [
 ]
 
 exportar funcion verificarJuegoGanado(movimientos) {
-	para (var combinacionGanadora de combinacionesGanadoras) {
-		var movimientosGanadores = []
-		para (var celda de movimientos) {
+	para (mut combinacionGanadora de combinacionesGanadoras) {
+		mut movimientosGanadores = []
+		para (mut celda de movimientos) {
 			si (combinacionGanadora.incluye(celda)) {
 				movimientosGanadores.agregar(celda)
 			}

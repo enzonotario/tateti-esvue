@@ -1,6 +1,5 @@
----
+<codigo configuracion>
 importar { ref } desde 'vue'
-importar Tablero desde '@/componentes/Tablero.esvue'
 importar Celda desde '@/componentes/Celda.esvue'
 importar { verificarJuegoGanado } desde '@/logica/CombinacionesGanadoras.esjs'
 
@@ -19,21 +18,21 @@ var movimientosA = [];
 var movimientosB = [];
 
 funcion iniciarJuego() {
-	juegoId.valor++
-	turno.valor = jugadores[0]
+	juegoId.value++
+	turno.value = jugadores[0]
 	celdasJugadas = []
 	movimientosA = []
 	movimientosB = []
 }
 
 funcion siguienteTurno() {
-	turno.valor = turno.valor == jugadores[0] ? jugadores[1] : jugadores[0]
+	turno.value = turno.value == jugadores[0] ? jugadores[1] : jugadores[0]
 
 	establecerTemporizador(() => {
 		si (verificarJuegoGanado(movimientosA)) {
 			alert('¡Ganó A!')
 			retornar iniciarJuego()
-		} osi (verificarJuegoGanado(movimientosB)) {
+		} sino si (verificarJuegoGanado(movimientosB)) {
 			alert('¡Ganó B!')
 			retornar iniciarJuego()
 		}
@@ -52,7 +51,7 @@ funcion registrarMovimiento(celda) {
 
 	celdasJugadas.agregar(celda)
 
-	si (turno.valor === jugadores[0]) {
+	si (turno.value === jugadores[0]) {
 		movimientosA.agregar(celda)
 	} sino {
 		movimientosB.agregar(celda)
@@ -72,7 +71,7 @@ funcion finalizarJuego() {
 funcion mostrarCelda(celda) {
 	si (movimientosA.incluye(celda)) {
 		retornar 'X'
-	} osi (movimientosB.incluye(celda)) {
+	} sino si (movimientosB.incluye(celda)) {
 		retornar 'O'
 	}
 
@@ -80,22 +79,23 @@ funcion mostrarCelda(celda) {
 }
 
 iniciarJuego()
----
-<template>
-	<div :key="juegoId" class="flex flex-col space-y-6">
-		<span class="text-3xl text-center">Juego N° {{ juegoId }}</span>
-		<span class="text-3xl text-center">Turno: {{ turno }} ({{ turno === 'A' ? 'X' : 'O' }})</span>
+</codigo>
 
-		<div class="grid grid-cols-3 bg-gray-100">
-			<div v-for="(celda, idx) of tablero" :key="idx" class="p-1">
+<plantilla>
+	<division :key="juegoId" clase="flex flex-col space-y-6">
+		<segmento clase="text-3xl text-center">Juego N° {{ juegoId }}</segmento>
+		<segmento clase="text-3xl text-center">Turno: {{ turno }} ({{ turno === 'A' ? 'X' : 'O' }})</segmento>
+
+		<division clase="grid grid-cols-3 bg-gray-100">
+			<division v-for="(celda, idx) of tablero" :key="idx" clase="p-1">
 				<Celda @click="registrarMovimiento(celda)">
-					<span>{{ mostrarCelda(celda) }}</span>
+					<segmento>{{ mostrarCelda(celda) }}</segmento>
 				</Celda>
-			</div>
-		</div>
+			</division>
+		</division>
 
-		<div class="flex flex-col">
-			<button @click="iniciarJuego()">Reiniciar juego</button>
-		</div>
-	</div>
-</template>
+		<division clase="flex flex-col">
+			<boton @click="iniciarJuego()">Reiniciar juego</boton>
+		</division>
+	</division>
+</plantilla>

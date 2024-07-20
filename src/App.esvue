@@ -1,11 +1,12 @@
----
+<codigo configuracion>
 importar Juego desde '@/componentes/Juego.esvue'
----
-<template>
-	<div class="grid place-items-center min-h-screen">
-		<div class="flex flex-col p-2">
-			<h1 class="text-5xl text-center">Ta Te Ti</h1>
+</codigo>
+
+<plantilla>
+	<division clase="grid place-items-center min-h-screen">
+		<division clase="flex flex-col p-2">
+			<t1 clase="text-5xl text-center">Ta Te Ti</t1>
 			<Juego />
-		</div>
-	</div>
-</template>
+		</division>
+	</division>
+</plantilla>

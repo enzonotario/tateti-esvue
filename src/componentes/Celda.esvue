@@ -1,6 +1,5 @@
----
-<template>
-	<div class="w-24 h-24 text-2xl flex flex-col justify-center items-center bg-white hover:bg-blue-50 cursor-pointer">
+<plantilla>
+	<division clase="w-24 h-24 text-2xl flex flex-col justify-center items-center bg-white hover:bg-blue-50 cursor-pointer">
 		<slot />
-	</div>
-</template>
+	</division>
+</plantilla>
